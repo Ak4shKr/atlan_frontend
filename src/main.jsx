@@ -8,7 +8,7 @@ import { theme } from "./theme/theme.js";
 import { Notifications } from "@mantine/notifications";
 
 createRoot(document.getElementById("root")).render(
-  <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+  <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS={false}>
     <Notifications />
     <App />
   </MantineProvider>
