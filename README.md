@@ -22,8 +22,8 @@ This project is a web-based SQL query runner that allows users to execute SQL qu
 Clone the repository and install dependencies:
 ```sh
 git clone https://github.com/ak4shkr/atlan_frontend
-cd atlan
 npm install
+npm run dev
 ```
 
 ## Application flow
