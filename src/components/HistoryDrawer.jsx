@@ -19,9 +19,9 @@ const HistoryDrawer = ({ opened, onClose, history }) => {
       overlayProps={{ opacity: 0.5 }}
     >
       <ScrollArea style={{ height: "calc(100% - 60px)" }}>
-        {history.map((example, i) => (
+        {history.map((example, index) => (
           <Text
-            key={i}
+            key={index}
             mt="sm"
             size="xs"
             style={{

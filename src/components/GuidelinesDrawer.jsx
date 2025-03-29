@@ -24,7 +24,11 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
       position="right"
     >
       <ScrollArea h="calc(100% - 60px)">
-        <Box style={{ padding: "10px" }}>
+        <Box
+          style={{
+            maxWidth: "90%",
+          }}
+        >
           <Title order={4} mt="sm" style={{ color: theme.colors.myColor[6] }}>
             Your Data Playground
           </Title>
@@ -110,7 +114,6 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
             </List.Item>
           </List>
 
-          {/* History */}
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
             Your Query History
           </Title>
@@ -120,12 +123,11 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
           <Text mt="xs">
             To clear history:{" "}
             <span style={{ fontFamily: "monospace" }}>
-              chrome://settings/siteData
+              chrome://settings/siteSetting/localStorage
             </span>{" "}
             (Chrome) or equivalent in your browser.
           </Text>
 
-          {/* Pro Tips */}
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
             Power User Tips
           </Title>
@@ -159,6 +161,28 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
               <Text span style={{ fontFamily: "monospace" }}>
                 AVG()
               </Text>
+            </List.Item>
+            <List.Item>
+              We have made{" "}
+              <Text
+                span
+                style={{ fontFamily: "monospace" }}
+                c={theme.colors.myColor[5]}
+              >
+                Run
+              </Text>{" "}
+              button as disabled in case of empty query.
+            </List.Item>{" "}
+            <List.Item>
+              Please try to access only{" "}
+              <Text
+                span
+                style={{ fontFamily: "monospace" }}
+                c={theme.colors.myColor[5]}
+              >
+                students
+              </Text>{" "}
+              table else you will find error.
             </List.Item>
           </List>
 

@@ -48,7 +48,7 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
         />
       </Suspense>
       <Group mt="sm" gap="md">
-        <Button size="xs" onClick={handleRun}>
+        <Button size="xs" onClick={handleRun} disabled={!query}>
           Run
         </Button>
         <Button size="xs" variant="outline" onClick={handleClear}>

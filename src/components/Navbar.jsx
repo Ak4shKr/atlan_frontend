@@ -2,7 +2,13 @@ import { Button, Group, Paper, Text, useMantineTheme } from "@mantine/core";
 import HistoryDrawer from "./HistoryDrawer";
 import GuidelinesDrawer from "./GuidelinesDrawer";
 
-export const Navbar = ({ toggleDrawer, drawerOpened, history }) => {
+export const Navbar = ({
+  toggleGuidelinesDrawer,
+  toggleHistoryDrawer,
+  guidelinesdrawerOpened,
+  historydrawerOpened,
+  history,
+}) => {
   const theme = useMantineTheme();
   return (
     <Paper
@@ -22,20 +28,20 @@ export const Navbar = ({ toggleDrawer, drawerOpened, history }) => {
         atlanSQL
       </Text>
       <Group>
-        <Button size="xs" variant="outline" onClick={toggleDrawer}>
+        <Button size="xs" variant="outline" onClick={toggleHistoryDrawer}>
           View History
         </Button>
         <HistoryDrawer
-          opened={drawerOpened}
-          onClose={toggleDrawer}
+          opened={historydrawerOpened}
+          onClose={toggleHistoryDrawer}
           history={history}
         />
-        <Button size="xs" onClick={toggleDrawer}>
+        <Button size="xs" onClick={toggleGuidelinesDrawer}>
           Guidelines
         </Button>
         <GuidelinesDrawer
-          opened={drawerOpened}
-          onClose={toggleDrawer}
+          opened={guidelinesdrawerOpened}
+          onClose={toggleGuidelinesDrawer}
           history={history}
         />
       </Group>
