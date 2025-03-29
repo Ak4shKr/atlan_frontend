@@ -27,6 +27,7 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
         <Box
           style={{
             maxWidth: "90%",
+            textWrap: "wrap",
           }}
         >
           <Title order={4} mt="sm" style={{ color: theme.colors.myColor[6] }}>
@@ -123,7 +124,7 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
           <Text mt="xs">
             To clear history:{" "}
             <span style={{ fontFamily: "monospace" }}>
-              chrome://settings/siteSetting/localStorage
+              chrome://settings/siteSetting
             </span>{" "}
             (Chrome) or equivalent in your browser.
           </Text>
