@@ -1,6 +1,7 @@
 import { Button, Group, Paper, Text, useMantineTheme } from "@mantine/core";
 import HistoryDrawer from "./HistoryDrawer";
 import GuidelinesDrawer from "./GuidelinesDrawer";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const Navbar = ({
   toggleGuidelinesDrawer,
@@ -10,10 +11,11 @@ export const Navbar = ({
   history,
 }) => {
   const theme = useMantineTheme();
+  const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <Paper
       py="sm"
-      px="xl"
+      px={isMobile ? "xs" : "lg"}
       style={{
         display: "flex",
         justifyContent: "space-between",
