@@ -26,6 +26,11 @@ cd atlan
 npm install
 ```
 
+## Application flow
+![Screenshot 2025-03-29 183449](https://github.com/user-attachments/assets/61a80baf-bfdf-418e-b20c-013922005708)
+
+
+
 ## 🚀 Key Optimizations for 100% Performance
 - **Code Splitting**: Components are dynamically loaded only when required.
 - **Lazy Loading**: Routes and UI components are loaded asynchronously to reduce initial load time.
