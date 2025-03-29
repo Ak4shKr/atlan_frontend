@@ -21,8 +21,10 @@ export const Home = () => {
     handleEditorChange,
     handleRun,
     handleExampleClick,
-    toggleDrawer,
-    drawerOpened,
+    toggleHistoryDrawer,
+    toggleGuidelinesDrawer,
+    guidelinesdrawerOpened,
+    historydrawerOpened,
     history,
   } = useHome();
 
@@ -43,8 +45,10 @@ export const Home = () => {
   return (
     <Box style={{ height: "100vh" }}>
       <Navbar
-        toggleDrawer={toggleDrawer}
-        drawerOpened={drawerOpened}
+        toggleGuidelinesDrawer={toggleGuidelinesDrawer}
+        toggleHistoryDrawer={toggleHistoryDrawer}
+        guidelinesdrawerOpened={guidelinesdrawerOpened}
+        historydrawerOpened={historydrawerOpened}
         history={history}
       />
       <Flex

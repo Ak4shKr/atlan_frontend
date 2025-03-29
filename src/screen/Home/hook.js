@@ -6,7 +6,8 @@ const useHome = () => {
   const [output, setOutput] = useState([]);
   const [columns, setColumns] = useState([]);
   const [error, setError] = useState(null);
-  const [drawerOpened, setDrawerOpened] = useState(false);
+  const [historydrawerOpened, setHisttoryDrawerOpened] = useState(false);
+  const [guidelinesdrawerOpened, setGuidelinesDrawerOpened] = useState(false);
   const [history, setHistory] = useState([]);
   const queryRef = useRef("");
 
@@ -21,8 +22,11 @@ const useHome = () => {
     localStorage.setItem("queryHistory", JSON.stringify(history));
   }, [history]);
 
-  const toggleDrawer = () => {
-    setDrawerOpened((prev) => !prev);
+  const toggleHistoryDrawer = () => {
+    setHisttoryDrawerOpened((prev) => !prev);
+  };
+  const toggleGuidelinesDrawer = () => {
+    setGuidelinesDrawerOpened((prev) => !prev);
   };
 
   const addToHistory = (query) => {
@@ -37,6 +41,13 @@ const useHome = () => {
   const handleRun = () => {
     const currentQuery = queryRef.current;
     if (!currentQuery) return;
+
+    if (!currentQuery.trim().toUpperCase().startsWith("SELECT")) {
+      setError("Only SELECT queries are allowed.");
+      setOutput([]);
+      setColumns([]);
+      return;
+    }
 
     try {
       addToHistory(currentQuery);
@@ -86,8 +97,10 @@ const useHome = () => {
     handleClear,
     handleEditorChange,
     handleExampleClick,
-    toggleDrawer,
-    drawerOpened,
+    toggleGuidelinesDrawer,
+    toggleHistoryDrawer,
+    guidelinesdrawerOpened,
+    historydrawerOpened,
     history,
   };
 };
