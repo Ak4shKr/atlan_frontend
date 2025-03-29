@@ -50,9 +50,9 @@ const useHome = () => {
     }
 
     try {
-      addToHistory(currentQuery);
       const result = alasql(currentQuery);
       if (result.length > 0) {
+        addToHistory(currentQuery);
         const newColumns = Object.keys(result[0]);
         setColumns(newColumns);
         setOutput(result);
