@@ -48,8 +48,11 @@ npm install
 ![Screenshot 2025-03-29 174303](https://github.com/user-attachments/assets/2b32d725-d8b4-4701-be6e-f0ba4ecd8e25)
 
 ### Live Link
-
 **https://atlanfrontend.vercel.app/**
+
+## codebase Visualization
+![diagram (1)](https://github.com/user-attachments/assets/b890acd1-49dc-4271-9f49-18c35faef292)
+
 
 ## 🌎 **Future Improvements**
 
