@@ -16,7 +16,7 @@ const NotFound = () => {
       <Text size="xl" fw="700" c={"red"}>
         404 - Page Not Found
       </Text>
-      <Text fw="400" size="md" mt="sm">
+      <Text fw="500" size="md" mt="sm">
         The page you are looking for does not exist.
       </Text>
       <Link to="/">
