@@ -1,6 +1,5 @@
 import {
   Button,
-  Flex,
   Group,
   Loader,
   Paper,
@@ -8,6 +7,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { lazy, Suspense } from "react";
+import { EditorView } from "@codemirror/view";
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
 import { sql } from "@codemirror/lang-sql";
 import { useMediaQuery } from "@mantine/hooks";
@@ -33,11 +33,8 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
         <CodeMirror
           value={query}
           height="100%"
-          extensions={[sql()]}
+          extensions={[sql(), EditorView.lineWrapping]}
           onChange={handleEditorChange}
-          basicSetup={{
-            lineWrapping: true,
-          }}
           style={{
             height: isMobile ? "50%" : "60%",
             overflowY: "auto",
