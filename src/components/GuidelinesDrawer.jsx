@@ -49,6 +49,12 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
             </List.Item>
             <List.Item>
               <Text span fw={500}>
+                gender
+              </Text>{" "}
+              (text)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
                 city
               </Text>{" "}
               (text)
