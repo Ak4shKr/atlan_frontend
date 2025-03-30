@@ -32,10 +32,9 @@ npm install
 ```
 
 ## Application flow
-
+- **Link**: https://excalidraw.com/#json=sXCzd72psTKCLyhMu4gzd,7tWzdPG315KX2Kk_snMOsQ
 ![Screenshot 2025-03-29 183449](https://github.com/user-attachments/assets/61a80baf-bfdf-418e-b20c-013922005708)
 
-- **Link**: https://excalidraw.com/#json=sXCzd72psTKCLyhMu4gzd,7tWzdPG315KX2Kk_snMOsQ
 
 ## 🚀 Key Optimizations for 100% Performance
 
