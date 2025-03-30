@@ -6,10 +6,12 @@ import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { theme } from "./theme/theme.js";
 import { Notifications } from "@mantine/notifications";
+import { Analytics } from "@vercel/analytics/react";
 
 createRoot(document.getElementById("root")).render(
   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
     <Notifications />
+    <Analytics />
     <App />
   </MantineProvider>
 );
