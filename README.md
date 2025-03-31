@@ -18,6 +18,7 @@ This project is a web-based SQL query runner that allows users to execute SQL qu
 - **React Router** - Routing management
 - **LocalStorage API** - Persistent query history
 - **React Suspense & Lazy** - Lazy loading for optimized performance
+- **React-CSV** - used for importing output data as CSV
 
 ## 🚀 Getting Started
 
