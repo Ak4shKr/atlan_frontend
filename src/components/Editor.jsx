@@ -24,6 +24,8 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
       style={{
         height: "50%",
         border: `1px solid ${theme.colors.myColor[3]}`,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Text size="lg" fw={700} mb="sm">
@@ -41,6 +43,7 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
             overflowX: "auto",
             scrollbarWidth: "none",
             fontSize: "0.82rem",
+            flex: 1,
           }}
         />
       </Suspense>
