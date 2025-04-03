@@ -34,18 +34,38 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
             Your Data Playground
           </Title>
           <Text mt="xs">
-            We've prepared a{" "}
+            We've prepared two tables for you to explore:{" "}
             <span style={{ color: theme.colors.myColor[6], fontWeight: 600 }}>
               students
             </span>{" "}
-            table with real-world data for you to explore:
+            and{" "}
+            <span style={{ color: theme.colors.myColor[6], fontWeight: 600 }}>
+              marks
+            </span>
+            .
           </Text>
+
+          <Title order={5} mt="md" style={{ color: theme.colors.myColor[6] }}>
+            Students Table
+          </Title>
           <List size="sm" mt="xs" spacing="xs">
+            <List.Item>
+              <Text span fw={500}>
+                id
+              </Text>{" "}
+              (integer, primary key)
+            </List.Item>
             <List.Item>
               <Text span fw={500}>
                 name
               </Text>{" "}
               (text)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
+                age
+              </Text>{" "}
+              (number)
             </List.Item>
             <List.Item>
               <Text span fw={500}>
@@ -59,21 +79,51 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
               </Text>{" "}
               (text)
             </List.Item>
+          </List>
+
+          <Title order={5} mt="md" style={{ color: theme.colors.myColor[6] }}>
+            Marks Table
+          </Title>
+          <List size="sm" mt="xs" spacing="xs">
             <List.Item>
               <Text span fw={500}>
-                country
+                id
               </Text>{" "}
-              (text)
+              (integer, primary key)
             </List.Item>
             <List.Item>
               <Text span fw={500}>
-                age
+                studentId
+              </Text>{" "}
+              (integer, foreign key)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
+                physics
               </Text>{" "}
               (number)
             </List.Item>
             <List.Item>
               <Text span fw={500}>
-                marks
+                chemistry
+              </Text>{" "}
+              (number)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
+                math
+              </Text>{" "}
+              (number)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
+                english
+              </Text>{" "}
+              (number)
+            </List.Item>
+            <List.Item>
+              <Text span fw={500}>
+                hindi
               </Text>{" "}
               (number)
             </List.Item>
@@ -96,47 +146,60 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
           </Text>
           <List size="sm" mt="xs" spacing="xs">
             <List.Item>
-              Find all students:{" "}
+              Get all students:{" "}
               <Text span style={{ fontFamily: "monospace" }}>
-                SELECT * FROM students
+                SELECT * FROM students;
               </Text>
             </List.Item>
             <List.Item>
-              Filter by age:{" "}
+              Find students older than 18:{" "}
               <Text span style={{ fontFamily: "monospace" }}>
-                SELECT name FROM students WHERE age {">"} 20
-              </Text>
-            </List.Item>
-            <List.Item>
-              Group results:{" "}
-              <Text span style={{ fontFamily: "monospace" }}>
-                SELECT country, AVG(marks) FROM students GROUP BY country
-              </Text>
-            </List.Item>
-            <List.Item>
-              Sort results:{" "}
-              <Text span style={{ fontFamily: "monospace" }}>
-                SELECT * FROM students ORDER BY marks DESC
+                SELECT name FROM students WHERE age {">"} 18;
               </Text>
             </List.Item>
           </List>
 
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
-            Your Query History
+            Join Operations
+          </Title>
+          <Text mt="xs">
+            Use{" "}
+            <span
+              style={{
+                color: theme.colors.myColor[6],
+                fontFamily: "monospace",
+              }}
+            >
+              JOIN
+            </span>{" "}
+            queries to combine data from both tables:
+          </Text>
+          <List size="sm" mt="xs" spacing="xs">
+            <List.Item>
+              Get student names with their physics marks:{" "}
+              <Text span style={{ fontFamily: "monospace" }}>
+                SELECT students.name, marks.physics FROM students JOIN marks ON
+                students.id = marks.studentId;
+              </Text>
+            </List.Item>
+            <List.Item>
+              Find students who scored more than 80 in math:{" "}
+              <Text span style={{ fontFamily: "monospace" }}>
+                SELECT students.name FROM students JOIN marks ON students.id =
+                marks.studentId WHERE marks.math {">"} 80;
+              </Text>
+            </List.Item>
+          </List>
+
+          <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
+            Query History
           </Title>
           <Text mt="xs">
             We automatically save your last 20 queries in this browser.
           </Text>
-          <Text mt="xs">
-            To clear history:{" "}
-            <span style={{ fontFamily: "monospace" }}>
-              chrome://settings/siteSetting
-            </span>{" "}
-            (Chrome) or equivalent in your browser.
-          </Text>
 
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
-            Power User Tips
+            Pro Tips
           </Title>
           <List size="sm" mt="xs" spacing="xs">
             <List.Item>
@@ -144,57 +207,62 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
               <Text span style={{ fontFamily: "monospace" }}>
                 LIKE
               </Text>{" "}
-              for text searches:{" "}
+              for partial text searches:{" "}
               <Text span style={{ fontFamily: "monospace" }}>
-                SELECT * FROM students WHERE name LIKE '%John%'
+                SELECT * FROM students WHERE name LIKE '%John%';
               </Text>
             </List.Item>
             <List.Item>
-              Combine conditions with{" "}
+              Find total students per city:{" "}
               <Text span style={{ fontFamily: "monospace" }}>
-                AND/OR
+                SELECT city, COUNT(*) FROM students GROUP BY city;
               </Text>
             </List.Item>
+          </List>
+
+          <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
+            Important Notes
+          </Title>
+          <List size="sm" mt="xs" spacing="xs">
             <List.Item>
-              Calculate aggregates:{" "}
-              <Text span style={{ fontFamily: "monospace" }}>
-                COUNT()
-              </Text>
-              ,{" "}
-              <Text span style={{ fontFamily: "monospace" }}>
-                SUM()
-              </Text>
-              ,{" "}
-              <Text span style={{ fontFamily: "monospace" }}>
-                AVG()
-              </Text>
-            </List.Item>
-            <List.Item>
-              We have made{" "}
-              <Text
-                span
-                style={{ fontFamily: "monospace" }}
-                c={theme.colors.myColor[5]}
-              >
-                Run
-              </Text>{" "}
-              button as disabled in case of empty query.
-            </List.Item>{" "}
-            <List.Item>
-              Please try to access only{" "}
-              <Text
-                span
-                style={{ fontFamily: "monospace" }}
-                c={theme.colors.myColor[5]}
-              >
+              You can only use{" "}
+              <Text span fw={600} style={{ color: theme.colors.myColor[6] }}>
                 students
               </Text>{" "}
-              table else you will find error.
+              and{" "}
+              <Text span fw={600} style={{ color: theme.colors.myColor[6] }}>
+                marks
+              </Text>{" "}
+              tables.
+            </List.Item>
+            <List.Item>
+              Table and column names are{" "}
+              <Text span fw={600} style={{ color: theme.colors.myColor[6] }}>
+                case-sensitive
+              </Text>
+              .
+            </List.Item>
+            <List.Item>
+              You can only perform{" "}
+              <Text span fw={600} style={{ color: theme.colors.myColor[6] }}>
+                READ
+              </Text>{" "}
+              operations (no INSERT, UPDATE, DELETE).
+            </List.Item>
+            <List.Item>
+              Running complex queries may take longer to execute.
+            </List.Item>
+            <List.Item>
+              Always use{" "}
+              <Text span fw={600} style={{ color: theme.colors.myColor[6] }}>
+                proper syntax
+              </Text>{" "}
+              to avoid errors.
             </List.Item>
           </List>
 
           <Text mt="lg" size="sm" fw={500} c="pink">
-            Start simple, then try complex queries to uncover insights!
+            Experiment with different queries to uncover insights!
           </Text>
         </Box>
       </ScrollArea>

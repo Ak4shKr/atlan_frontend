@@ -1,0 +1,82 @@
+[
+  {
+    "studentId": 1,
+    "physics": 85,
+    "chemistry": 78,
+    "math": 92,
+    "english": 80,
+    "hindi": 75
+  },
+  {
+    "studentId": 2,
+    "physics": 75,
+    "chemistry": 88,
+    "math": 79,
+    "english": 85,
+    "hindi": 80
+  },
+  {
+    "studentId": 3,
+    "physics": 90,
+    "chemistry": 84,
+    "math": 95,
+    "english": 78,
+    "hindi": 88
+  },
+  {
+    "studentId": 4,
+    "physics": 70,
+    "chemistry": 65,
+    "math": 60,
+    "english": 82,
+    "hindi": 77
+  },
+  {
+    "studentId": 5,
+    "physics": 88,
+    "chemistry": 91,
+    "math": 94,
+    "english": 86,
+    "hindi": 82
+  },
+  {
+    "studentId": 6,
+    "physics": 79,
+    "chemistry": 73,
+    "math": 89,
+    "english": 81,
+    "hindi": 74
+  },
+  {
+    "studentId": 7,
+    "physics": 95,
+    "chemistry": 94,
+    "math": 98,
+    "english": 88,
+    "hindi": 85
+  },
+  {
+    "studentId": 8,
+    "physics": 66,
+    "chemistry": 70,
+    "math": 75,
+    "english": 72,
+    "hindi": 68
+  },
+  {
+    "studentId": 9,
+    "physics": 82,
+    "chemistry": 80,
+    "math": 88,
+    "english": 79,
+    "hindi": 76
+  },
+  {
+    "studentId": 10,
+    "physics": 77,
+    "chemistry": 79,
+    "math": 82,
+    "english": 83,
+    "hindi": 81
+  }
+]

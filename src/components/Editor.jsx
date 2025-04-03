@@ -28,9 +28,6 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
         flexDirection: "column",
       }}
     >
-      <Text size="lg" fw={700} mb="sm">
-        SQL Editor
-      </Text>
       <Suspense fallback={<Loader type="bars" size={"xs"} />}>
         <CodeMirror
           value={query}

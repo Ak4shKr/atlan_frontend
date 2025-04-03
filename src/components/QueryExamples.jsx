@@ -11,10 +11,11 @@ import {
 import { useMemo } from "react";
 
 const QUERY_EXAMPLES = [
-  "select * from students;",
-  "select * from students where age > 90 AND gender = 'Female';",
-  "select name, gender, age from students;",
-  "select country, count(*) as student_count from students group by country;",
+  "SELECT * FROM students;",
+  "SELECT * FROM marks;",
+  "SELECT * FROM students WHERE name LIKE 'A%';",
+  "SELECT city, COUNT(*) AS total_students FROM students GROUP BY city;",
+  "SELECT students.name, marks.physics FROM students JOIN marks ON students.id = marks.studentId;",
 ];
 
 const QueryExample = ({ handleExampleClick }) => {
@@ -33,6 +34,8 @@ const QueryExample = ({ handleExampleClick }) => {
             color: theme.colors.myColor[6],
             fontWeight: "500",
             cursor: "pointer",
+            wordBreak: "break-word",
+            lineHeight: "1.5",
           }}
           onClick={() => handleExampleClick(exampleQuery)}
         >
