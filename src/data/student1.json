@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Amit Sharma",
+    "age": 18,
+    "gender": "Male",
+    "city": "Delhi"
+  },
+  {
+    "id": 2,
+    "name": "Priya Verma",
+    "age": 19,
+    "gender": "Female",
+    "city": "Mumbai"
+  },
+  {
+    "id": 3,
+    "name": "Rohit Mehta",
+    "age": 18,
+    "gender": "Male",
+    "city": "Bangalore"
+  },
+  {
+    "id": 4,
+    "name": "Neha Gupta",
+    "age": 20,
+    "gender": "Female",
+    "city": "Kolkata"
+  },
+  {
+    "id": 5,
+    "name": "Vikram Rao",
+    "age": 17,
+    "gender": "Male",
+    "city": "Hyderabad"
+  },
+  {
+    "id": 6,
+    "name": "Swati Mishra",
+    "age": 19,
+    "gender": "Female",
+    "city": "Chennai"
+  },
+  {
+    "id": 7,
+    "name": "Rahul Nair",
+    "age": 18,
+    "gender": "Male",
+    "city": "Pune"
+  },
+  {
+    "id": 8,
+    "name": "Megha Singh",
+    "age": 20,
+    "gender": "Female",
+    "city": "Jaipur"
+  },
+  {
+    "id": 9,
+    "name": "Aditya Das",
+    "age": 17,
+    "gender": "Male",
+    "city": "Lucknow"
+  },
+  {
+    "id": 10,
+    "name": "Sanya Khan",
+    "age": 19,
+    "gender": "Female",
+    "city": "Chandigarh"
+  }
+]

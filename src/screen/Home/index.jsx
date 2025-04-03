@@ -44,10 +44,15 @@ export const Home = () => {
       if (!alasql.tables.students) {
         const { default: alasql } = await import("alasql");
         alasql(
-          "CREATE TABLE students (name STRING, gender STRING, city STRING, country STRING, age NUMBER, marks NUMBER)"
+          "CREATE TABLE students (id NUMBER, name STRING, age NUMBER,gender STRING, city STRING )"
         );
-        const studentsData = await import("../../data/student.json");
+        alasql(
+          "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER,math NUMBER, english NUMBER, hindi NUMBER )"
+        );
+        const studentsData = await import("../../data/student1.json");
+        const marksData = await import("../../data/marks1.json");
         alasql("INSERT INTO students SELECT * FROM ?", [studentsData.default]);
+        alasql("INSERT INTO marks SELECT * FROM ?", [marksData.default]);
       }
     };
     initAlasql();
@@ -66,7 +71,7 @@ export const Home = () => {
         direction={isMobile ? "vertical" : "horizontal"}
         style={{ height: "calc(100% - 64px)" }}
       >
-        <Panel defaultSize={isMobile ? 60 : 40} minSize={20} maxSize={80}>
+        <Panel defaultSize={50} minSize={20} maxSize={80}>
           <Box
             style={{
               height: "100%",
@@ -81,6 +86,7 @@ export const Home = () => {
               handleClear={handleClear}
               handleRun={handleRun}
             />
+
             <Suspense fallback={<Loader type="bars" size={"xs"} />}>
               <QueryExample handleExampleClick={handleExampleClick} />
             </Suspense>
@@ -91,7 +97,7 @@ export const Home = () => {
           style={{ width: "2px", cursor: "col-resize", background: "#ccc" }}
         />
 
-        <Panel defaultSize={isMobile ? 40 : 60} minSize={20} maxSize={80}>
+        <Panel defaultSize={50} minSize={20} maxSize={80}>
           <Paper p="md" h="100%" withBorder>
             <Group justify="space-between" mb="md">
               <Text size="lg" fw={700}>
