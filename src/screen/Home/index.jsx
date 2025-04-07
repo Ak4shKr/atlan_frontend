@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import {
   Box,
   ScrollArea,
@@ -9,14 +9,13 @@ import {
   Button,
 } from "@mantine/core";
 import { Navbar } from "../../components/Navbar";
-import alasql from "alasql";
 import { useMediaQuery } from "@mantine/hooks";
 import useHome from "./hook";
 import SQLEditor from "../../components/Editor";
 import { CSVLink } from "react-csv";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
 
-const QueryExample = lazy(() => import("../../components/QueryExamples"));
+const QueryExample = lazy(() => import("../../components/AvailableTable"));
 const QueryOutputTable = lazy(() =>
   import("../../components/QueryOutputTable")
 );
@@ -37,26 +36,8 @@ export const Home = () => {
     guidelinesdrawerOpened,
     historydrawerOpened,
     history,
+    getAllData,
   } = useHome();
-
-  useEffect(() => {
-    const initAlasql = async () => {
-      if (!alasql.tables.students) {
-        const { default: alasql } = await import("alasql");
-        alasql(
-          "CREATE TABLE students (id NUMBER, name STRING, age NUMBER,gender STRING, city STRING )"
-        );
-        alasql(
-          "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER,math NUMBER, english NUMBER, hindi NUMBER )"
-        );
-        const studentsData = await import("../../data/student1.json");
-        const marksData = await import("../../data/marks1.json");
-        alasql("INSERT INTO students SELECT * FROM ?", [studentsData.default]);
-        alasql("INSERT INTO marks SELECT * FROM ?", [marksData.default]);
-      }
-    };
-    initAlasql();
-  }, []);
 
   return (
     <Box style={{ height: "100vh" }}>
@@ -88,7 +69,10 @@ export const Home = () => {
             />
 
             <Suspense fallback={<Loader type="bars" size={"xs"} />}>
-              <QueryExample handleExampleClick={handleExampleClick} />
+              <QueryExample
+                handleExampleClick={handleExampleClick}
+                getAllData={getAllData}
+              />
             </Suspense>
           </Box>
         </Panel>

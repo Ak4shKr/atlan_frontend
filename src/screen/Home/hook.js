@@ -30,6 +30,12 @@ const useHome = () => {
     initAlasql();
   }, []);
 
+  const getAllData = () => {
+    const students = alasql("SELECT * FROM students");
+    const marks = alasql("SELECT * FROM marks");
+    return { students, marks };
+  };
+
   useEffect(() => {
     const savedHistory = localStorage.getItem("queryHistory");
     if (savedHistory) {
@@ -121,6 +127,7 @@ const useHome = () => {
     guidelinesdrawerOpened,
     historydrawerOpened,
     history,
+    getAllData,
   };
 };
 
