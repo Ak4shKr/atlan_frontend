@@ -12,6 +12,25 @@ const useHome = () => {
   const queryRef = useRef("");
 
   useEffect(() => {
+    const initAlasql = async () => {
+      if (!alasql.tables.students) {
+        const { default: alasql } = await import("alasql");
+        alasql(
+          "CREATE TABLE students (id NUMBER, name STRING, age NUMBER,gender STRING, city STRING )"
+        );
+        alasql(
+          "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER,math NUMBER, english NUMBER, hindi NUMBER )"
+        );
+        const studentsData = await import("../../data/student1.json");
+        const marksData = await import("../../data/marks1.json");
+        alasql("INSERT INTO students SELECT * FROM ?", [studentsData.default]);
+        alasql("INSERT INTO marks SELECT * FROM ?", [marksData.default]);
+      }
+    };
+    initAlasql();
+  }, []);
+
+  useEffect(() => {
     const savedHistory = localStorage.getItem("queryHistory");
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
