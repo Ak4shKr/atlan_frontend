@@ -5,7 +5,7 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-const HistoryDrawer = ({ opened, onClose, history }) => {
+const HistoryDrawer = ({ opened, onClose, history, handleExampleClick }) => {
   const theme = useMantineTheme();
 
   return (
@@ -30,6 +30,11 @@ const HistoryDrawer = ({ opened, onClose, history }) => {
               padding: "4px",
               fontWeight: "500",
               color: `${theme.colors.blue[8]}`,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              handleExampleClick(example);
+              onClose();
             }}
           >
             {example}
