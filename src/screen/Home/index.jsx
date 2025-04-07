@@ -8,16 +8,17 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { Navbar } from "../../components/Navbar";
+
 import { useMediaQuery } from "@mantine/hooks";
 import useHome from "./hook";
-import SQLEditor from "../../components/Editor";
+import SQLEditor from "../../components/code-editor";
 import { CSVLink } from "react-csv";
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels";
+import { Navbar } from "../../components/Navbar";
 
-const QueryExample = lazy(() => import("../../components/AvailableTable"));
+const AvailableTables = lazy(() => import("../../components/available-table"));
 const QueryOutputTable = lazy(() =>
-  import("../../components/QueryOutputTable")
+  import("../../components/query-output-table")
 );
 
 export const Home = () => {
@@ -29,14 +30,15 @@ export const Home = () => {
     query,
     handleClear,
     handleEditorChange,
-    handleRun,
     handleExampleClick,
+    handleRun,
     toggleHistoryDrawer,
     toggleGuidelinesDrawer,
     guidelinesdrawerOpened,
     historydrawerOpened,
     history,
     getAllData,
+    dataReady,
   } = useHome();
 
   return (
@@ -47,6 +49,7 @@ export const Home = () => {
         guidelinesdrawerOpened={guidelinesdrawerOpened}
         historydrawerOpened={historydrawerOpened}
         history={history}
+        handleExampleClick={handleExampleClick}
       />
       <PanelGroup
         direction={isMobile ? "vertical" : "horizontal"}
@@ -69,10 +72,7 @@ export const Home = () => {
             />
 
             <Suspense fallback={<Loader type="bars" size={"xs"} />}>
-              <QueryExample
-                handleExampleClick={handleExampleClick}
-                getAllData={getAllData}
-              />
+              <AvailableTables getAllData={getAllData} dataReady={dataReady} />
             </Suspense>
           </Box>
         </Panel>

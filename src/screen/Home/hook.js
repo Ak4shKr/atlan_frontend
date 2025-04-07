@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import alasql from "alasql";
 
 const useHome = () => {
@@ -6,37 +6,44 @@ const useHome = () => {
   const [output, setOutput] = useState([]);
   const [columns, setColumns] = useState([]);
   const [error, setError] = useState(null);
-  const [historydrawerOpened, setHisttoryDrawerOpened] = useState(false);
+  const [historydrawerOpened, setHistoryDrawerOpened] = useState(false);
   const [guidelinesdrawerOpened, setGuidelinesDrawerOpened] = useState(false);
   const [history, setHistory] = useState([]);
+  const [dataReady, setDataReady] = useState(false);
   const queryRef = useRef("");
 
   useEffect(() => {
     const initAlasql = async () => {
       if (!alasql.tables.students) {
-        const { default: alasql } = await import("alasql");
         alasql(
-          "CREATE TABLE students (id NUMBER, name STRING, age NUMBER,gender STRING, city STRING )"
+          "CREATE TABLE students (id NUMBER, name STRING, age NUMBER, gender STRING, city STRING)"
         );
         alasql(
-          "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER,math NUMBER, english NUMBER, hindi NUMBER )"
+          "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER, math NUMBER, english NUMBER, hindi NUMBER)"
         );
+
         const studentsData = await import("../../data/student1.json");
         const marksData = await import("../../data/marks1.json");
+
         alasql("INSERT INTO students SELECT * FROM ?", [studentsData.default]);
         alasql("INSERT INTO marks SELECT * FROM ?", [marksData.default]);
       }
+
+      setDataReady(true);
     };
+
     initAlasql();
   }, []);
 
-  const getAllData = () => {
+  const getAllData = useCallback(() => {
+    console.log("Query10");
     const students = alasql("SELECT * FROM students");
     const marks = alasql("SELECT * FROM marks");
     return { students, marks };
-  };
+  }, []);
 
   useEffect(() => {
+    console.log("Query11");
     const savedHistory = localStorage.getItem("queryHistory");
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
@@ -48,7 +55,7 @@ const useHome = () => {
   }, [history]);
 
   const toggleHistoryDrawer = () => {
-    setHisttoryDrawerOpened((prev) => !prev);
+    setHistoryDrawerOpened((prev) => !prev);
   };
   const toggleGuidelinesDrawer = () => {
     setGuidelinesDrawerOpened((prev) => !prev);
@@ -128,6 +135,7 @@ const useHome = () => {
     historydrawerOpened,
     history,
     getAllData,
+    dataReady,
   };
 };
 

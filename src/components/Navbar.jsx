@@ -1,6 +1,6 @@
 import { Button, Group, Paper, Text, useMantineTheme } from "@mantine/core";
-import HistoryDrawer from "./HistoryDrawer";
-import GuidelinesDrawer from "./GuidelinesDrawer";
+import HistoryDrawer from "./history-drawer";
+import GuidelinesDrawer from "./guidelines-drawer";
 import { useMediaQuery } from "@mantine/hooks";
 
 export const Navbar = ({
@@ -9,6 +9,7 @@ export const Navbar = ({
   guidelinesdrawerOpened,
   historydrawerOpened,
   history,
+  handleExampleClick,
 }) => {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -37,6 +38,7 @@ export const Navbar = ({
           opened={historydrawerOpened}
           onClose={toggleHistoryDrawer}
           history={history}
+          handleExampleClick={handleExampleClick}
         />
         <Button size="xs" onClick={toggleGuidelinesDrawer}>
           Guidelines
