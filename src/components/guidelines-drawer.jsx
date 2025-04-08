@@ -194,9 +194,19 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
             Query History
           </Title>
-          <Text mt="xs">
-            We automatically save your last 20 queries in this browser.
-          </Text>
+          <List size="sm" mt="xs" spacing="xs">
+            <List.Item>
+              <Text mt="xs">
+                We automatically save your last 20 queries in this browser.
+              </Text>
+            </List.Item>
+            <List.Item>
+              <Text mt="xs">
+                You can simply execute query by clicking on query listed in
+                history.
+              </Text>
+            </List.Item>
+          </List>
 
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
             Pro Tips
@@ -209,7 +219,7 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
               </Text>{" "}
               for partial text searches:{" "}
               <Text span style={{ fontFamily: "monospace" }}>
-                SELECT * FROM students WHERE name LIKE '%John%';
+                SELECT * FROM students WHERE name LIKE 'A%';
               </Text>
             </List.Item>
             <List.Item>
