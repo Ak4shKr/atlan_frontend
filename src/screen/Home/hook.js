@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import alasql from "alasql";
 
 const useHome = () => {
-  const [query, setQuery] = useState("");
   const [output, setOutput] = useState([]);
   const [columns, setColumns] = useState([]);
   const [error, setError] = useState(null);
@@ -10,7 +9,11 @@ const useHome = () => {
   const [guidelinesdrawerOpened, setGuidelinesDrawerOpened] = useState(false);
   const [history, setHistory] = useState([]);
   const [dataReady, setDataReady] = useState(false);
-  const queryRef = useRef("");
+
+  const defaultQuery =
+    "SELECT students.name, marks.physics FROM students JOIN marks ON students.id = marks.studentId;";
+  const [query, setQuery] = useState(defaultQuery);
+  const queryRef = useRef(defaultQuery);
 
   useEffect(() => {
     const initAlasql = async () => {
