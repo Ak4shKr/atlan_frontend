@@ -55,7 +55,7 @@ export const Home = () => {
         direction={isMobile ? "vertical" : "horizontal"}
         style={{ height: "calc(100% - 64px)" }}
       >
-        <Panel defaultSize={50} minSize={20} maxSize={80}>
+        <Panel defaultSize={40} minSize={20} maxSize={80}>
           <Box
             style={{
               height: "100%",
@@ -81,7 +81,7 @@ export const Home = () => {
           style={{ width: "2px", cursor: "col-resize", background: "#ccc" }}
         />
 
-        <Panel defaultSize={50} minSize={20} maxSize={80}>
+        <Panel defaultSize={60} minSize={20} maxSize={80}>
           <Paper p="md" h="100%" withBorder>
             <Group justify="space-between" mb="md">
               <Text size="lg" fw={700}>

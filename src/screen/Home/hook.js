@@ -25,6 +25,21 @@ const useHome = () => {
           "CREATE TABLE marks (studentId NUMBER, physics NUMBER, chemistry NUMBER, math NUMBER, english NUMBER, hindi NUMBER)"
         );
 
+        const tableKeys = Object.keys(localStorage).filter((key) =>
+          key.endsWith("_table")
+        );
+
+        tableKeys.forEach((tableKey) => {
+          const tableData = JSON.parse(localStorage.getItem(tableKey));
+          const tableName = tableKey.replace("_table", "");
+
+          if (!alasql.tables[tableName]) {
+            const keys = Object.keys(tableData[0]);
+            const schema = keys.map((k) => `${k} STRING`).join(", ");
+            alasql(`CREATE TABLE ${tableName} (${schema})`);
+            alasql(`INSERT INTO ${tableName} SELECT * FROM ?`, [tableData]);
+          }
+        });
         const studentsData = await import("../../data/student1.json");
         const marksData = await import("../../data/marks1.json");
 
@@ -39,14 +54,13 @@ const useHome = () => {
   }, []);
 
   const getAllData = useCallback(() => {
-    console.log("Query10");
     const students = alasql("SELECT * FROM students");
     const marks = alasql("SELECT * FROM marks");
+
     return { students, marks };
   }, []);
 
   useEffect(() => {
-    console.log("Query11");
     const savedHistory = localStorage.getItem("queryHistory");
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
@@ -77,31 +91,80 @@ const useHome = () => {
     const currentQuery = queryRef.current;
     if (!currentQuery) return;
 
-    if (!currentQuery.trim().toUpperCase().startsWith("SELECT")) {
-      setError("Only SELECT queries are allowed.");
-      setOutput([]);
-      setColumns([]);
-      return;
-    }
+    // if (
+    //   !currentQuery.trim().toUpperCase().startsWith("SELECT") &&
+    //   !currentQuery.trim().toUpperCase().startsWith("CREATE")
+    // ) {
+    //   setError("Only SELECT & CREATE queries are allowed.");
+    //   setOutput([]);
+    //   setColumns([]);
+    //   return;
+    // }
 
-    try {
-      const result = alasql(currentQuery);
-      if (result.length > 0) {
-        addToHistory(currentQuery);
-        const newColumns = Object.keys(result[0]);
-        setColumns(newColumns);
-        setOutput(result);
+    if (
+      currentQuery.trim().toUpperCase().startsWith("CREATE") ||
+      currentQuery.trim().toUpperCase().startsWith("INSERT")
+    ) {
+      try {
+        const result = alasql(currentQuery);
+        console.log("Table Created:", result);
+        localStorage.setItem(
+          `${currentQuery.split(" ")[2]}_table`,
+          JSON.stringify(alasql("SELECT * FROM " + currentQuery.split(" ")[2]))
+        );
         setError(null);
-      } else {
-        setColumns([]);
         setOutput([]);
-        setError("No results found.");
+        setColumns([]);
+        setDataReady(!!dataReady);
+        addToHistory(currentQuery);
+        setQuery("");
+        return;
+      } catch (err) {
+        console.error("Query Error:", err.message);
+        setError(err.message);
+        setOutput([]);
+        setColumns([]);
       }
-    } catch (err) {
-      console.error("Query Error:", err.message);
-      setError(err.message);
-      setOutput([]);
-      setColumns([]);
+    } else if (currentQuery.trim().toUpperCase().startsWith("DROP")) {
+      try {
+        const result = alasql(currentQuery);
+        console.log("Table Updated:", result);
+        localStorage.removeItem(`${currentQuery.split(" ")[2]}_table`);
+        setError(null);
+        setOutput([]);
+        setColumns([]);
+        setDataReady(!!dataReady);
+        addToHistory(currentQuery);
+        setQuery("");
+        queryRef.current = "";
+        return;
+      } catch (err) {
+        console.error("Query Error:", err.message);
+        setError(err.message);
+        setOutput([]);
+        setColumns([]);
+      }
+    } else {
+      try {
+        const result = alasql(currentQuery);
+        console.log("Query Result:", result);
+        if (result.length > 0) {
+          addToHistory(currentQuery);
+          const newColumns = Object.keys(result[0]);
+          setColumns(newColumns);
+          setOutput(result);
+          setError(null);
+        } else {
+          setColumns([]);
+          setOutput([]);
+          setError("No results found.");
+        }
+      } catch (err) {
+        console.error("Query Error:", err.message);
+        setError(err.message);
+        setOutput([]);
+        setColumns([]);
+      }
     }
   };
 
