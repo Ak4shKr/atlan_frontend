@@ -231,6 +231,35 @@ const GuidelinesDrawer = ({ opened, onClose }) => {
           </List>
 
           <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
+            Create & Insert
+          </Title>
+          <List size="sm" mt="xs" spacing="xs">
+            <List.Item>
+              Create a new table:
+              <Text span style={{ fontFamily: "monospace" }}>
+                {" "}
+                CREATE TABLE leader (id NUMBER, name STRING, country STRING, age
+                NUMBER);
+              </Text>
+            </List.Item>
+            <List.Item>
+              Insert multiple rows into a table:
+              <Text span style={{ fontFamily: "monospace" }}>
+                {" "}
+                INSERT INTO leader VALUES (1, 'Nelson Mandela', 'South Africa',
+                95), (2, 'Angela Merkel', 'Germany', 67);
+              </Text>
+            </List.Item>
+            <List.Item>
+              View contents of a table:
+              <Text span style={{ fontFamily: "monospace" }}>
+                {" "}
+                SELECT * FROM leader;
+              </Text>
+            </List.Item>
+          </List>
+
+          <Title order={4} mt="lg" style={{ color: theme.colors.myColor[6] }}>
             Important Notes
           </Title>
           <List size="sm" mt="xs" spacing="xs">

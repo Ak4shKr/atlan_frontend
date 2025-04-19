@@ -22,6 +22,23 @@ const AvailableTables = ({ getAllData, dataReady }) => {
 
   const { students, marks } = data;
 
+  const tables = Object.keys(localStorage).filter((key) =>
+    key.endsWith("_table")
+  );
+
+  let tableData = [];
+  let tableColumns = [];
+  let tablename = [];
+  tables.forEach((tableKey) => {
+    const tableContent = localStorage.getItem(tableKey);
+    if (tableContent) {
+      const parsedContent = JSON.parse(tableContent);
+      tablename.push(tableKey.replace("_table", ""));
+      tableData.push(parsedContent);
+      tableColumns.push(Object.keys(parsedContent[0] || {}));
+    }
+  });
+
   const studentColumns = Object.keys(students[0] || {});
   const marksColumns = Object.keys(marks[0] || {});
 
@@ -97,6 +114,41 @@ const AvailableTables = ({ getAllData, dataReady }) => {
           <Stack gap="xs">
             {studentTable}
             {marksTable}
+            {tables.map((table, index) => {
+              const tableName = table.replace("_table", "");
+              return (
+                <Box key={index}>
+                  <Text size="md" fw={600}>
+                    {tableName} Table
+                  </Text>
+                  <Table
+                    highlightOnHover
+                    withTableBorder
+                    withColumnBorders
+                    bg="white"
+                  >
+                    <Table.Thead>
+                      <Table.Tr>
+                        {tableColumns[index].map((col) => (
+                          <Table.Th key={col}>{col}</Table.Th>
+                        ))}
+                      </Table.Tr>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {tableData[index].map((row, rowIndex) => (
+                        <Table.Tr key={`row-${rowIndex}`}>
+                          {tableColumns[index].map((col) => (
+                            <Table.Td key={`${rowIndex}-${col}`}>
+                              {row[col]}
+                            </Table.Td>
+                          ))}
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                  </Table>
+                </Box>
+              );
+            })}
           </Stack>
         </ScrollArea>
       </Box>
