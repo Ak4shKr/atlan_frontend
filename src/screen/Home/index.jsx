@@ -8,7 +8,6 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-
 import { useMediaQuery } from "@mantine/hooks";
 import useHome from "./hook";
 import SQLEditor from "../../components/code-editor";
@@ -56,25 +55,38 @@ export const Home = () => {
         style={{ height: "calc(100% - 64px)" }}
       >
         <Panel defaultSize={40} minSize={20} maxSize={80}>
-          <Box
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              padding: "6px",
-            }}
-          >
-            <SQLEditor
-              handleEditorChange={handleEditorChange}
-              query={query}
-              handleClear={handleClear}
-              handleRun={handleRun}
+          <PanelGroup direction="vertical" style={{ height: "100%" }}>
+            <Panel defaultSize={50} minSize={20} maxSize={80}>
+              <Box style={{ height: "100%", padding: "6px" }}>
+                <SQLEditor
+                  handleEditorChange={handleEditorChange}
+                  query={query}
+                  handleClear={handleClear}
+                  handleRun={handleRun}
+                />
+              </Box>
+            </Panel>
+
+            <PanelResizeHandle
+              style={{
+                height: "2px",
+                cursor: "row-resize",
+                background: "#ccc",
+                margin: "0 6px",
+              }}
             />
 
-            <Suspense fallback={<Loader type="bars" size={"xs"} />}>
-              <AvailableTables getAllData={getAllData} dataReady={dataReady} />
-            </Suspense>
-          </Box>
+            <Panel defaultSize={50} minSize={20} maxSize={80}>
+              <Box style={{ height: "100%", padding: "6px" }}>
+                <Suspense fallback={<Loader type="bars" size={"xs"} />}>
+                  <AvailableTables
+                    getAllData={getAllData}
+                    dataReady={dataReady}
+                  />
+                </Suspense>
+              </Box>
+            </Panel>
+          </PanelGroup>
         </Panel>
 
         <PanelResizeHandle
