@@ -1,5 +1,6 @@
 import {
   Box,
+  Group,
   Loader,
   Paper,
   ScrollArea,
@@ -8,15 +9,27 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import React, { useMemo } from "react";
+import alasql from "alasql";
+import { ChevronDown } from "lucide-react";
+import React, { useMemo, useState } from "react";
 
 const AvailableTables = ({ getAllData, dataReady }) => {
   const theme = useMantineTheme();
+  const [openStates, setOpenStates] = useState({});
+
+  const toggleTable = (tableName) => {
+    setOpenStates((prev) => ({
+      ...prev,
+      [tableName]: !prev[tableName],
+    }));
+  };
 
   const data = useMemo(() => {
     if (!dataReady) return null;
     return getAllData();
   }, [dataReady, getAllData]);
+
+  console.log("data at alasql tables", alasql.tables);
 
   if (!data) return <Loader type="bars" size={"xs"} mt={"md"} />;
 
@@ -43,60 +56,114 @@ const AvailableTables = ({ getAllData, dataReady }) => {
   const marksColumns = Object.keys(marks[0] || {});
 
   const studentTable = (
-    <>
-      <Text size="md" fw={600}>
-        students Table
-      </Text>
-      <Table highlightOnHover withTableBorder withColumnBorders bg="white">
-        <Table.Thead>
-          <Table.Tr>
-            {studentColumns.map((col) => (
-              <Table.Th key={col}>{col}</Table.Th>
-            ))}
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {students.map((row, index) => (
-            <Table.Tr key={`student-row-${index}`}>
+    <Paper
+      style={{
+        backgroundColor: "white",
+        padding: "8px",
+        borderRadius: "4px",
+      }}
+    >
+      <Group
+        justify="space-between"
+        align="center"
+        onClick={() => toggleTable("students")}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        <Text size="md" fw={600}>
+          students Table
+        </Text>
+        <ChevronDown
+          style={{
+            transform: openStates["students"]
+              ? "rotate(180deg)"
+              : "rotate(0deg)",
+            transition: "0.3s",
+          }}
+        />
+      </Group>
+      {openStates["students"] && (
+        <Table
+          highlightOnHover
+          withTableBorder
+          withColumnBorders
+          bg="white"
+          mt="md"
+        >
+          <Table.Thead>
+            <Table.Tr>
               {studentColumns.map((col) => (
-                <Table.Td key={`${index}-${col}`}>{row[col]}</Table.Td>
+                <Table.Th key={col}>{col}</Table.Th>
               ))}
             </Table.Tr>
-          ))}
-        </Table.Tbody>
-      </Table>
-    </>
+          </Table.Thead>
+          <Table.Tbody>
+            {students.map((row, index) => (
+              <Table.Tr key={`student-row-${index}`}>
+                {studentColumns.map((col) => (
+                  <Table.Td key={`${index}-${col}`}>{row[col]}</Table.Td>
+                ))}
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
+      )}
+    </Paper>
   );
 
   const marksTable = (
-    <>
-      <Text size="md" fw={600}>
-        marks Table
-      </Text>
-      <Table highlightOnHover withTableBorder withColumnBorders bg="white">
-        <Table.Thead>
-          <Table.Tr>
-            {marksColumns.map((col) => (
-              <Table.Th key={col}>{col}</Table.Th>
-            ))}
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {marks.map((row, index) => (
-            <Table.Tr key={`marks-row-${index}`}>
+    <Paper
+      style={{
+        backgroundColor: "white",
+        padding: "8px",
+        borderRadius: "4px",
+      }}
+    >
+      <Group
+        justify="space-between"
+        align="center"
+        onClick={() => toggleTable("marks")}
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        <Text size="md" fw={600}>
+          marks Table
+        </Text>
+        <ChevronDown />
+      </Group>
+      {openStates["marks"] && (
+        <Table
+          highlightOnHover
+          withTableBorder
+          withColumnBorders
+          bg="white"
+          mt="md"
+        >
+          <Table.Thead>
+            <Table.Tr>
               {marksColumns.map((col) => (
-                <Table.Td key={`${index}-${col}`}>{row[col]}</Table.Td>
+                <Table.Th key={col}>{col}</Table.Th>
               ))}
             </Table.Tr>
-          ))}
-        </Table.Tbody>
-      </Table>
-    </>
+          </Table.Thead>
+          <Table.Tbody>
+            {marks.map((row, index) => (
+              <Table.Tr key={`marks-row-${index}`}>
+                {marksColumns.map((col) => (
+                  <Table.Td key={`${index}-${col}`}>{row[col]}</Table.Td>
+                ))}
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
+      )}
+    </Paper>
   );
 
   return (
     <Paper
-      mt="md"
       p="md"
       withBorder
       bg={theme.colors.myColor?.[0] || theme.colors.gray[0]}
@@ -104,7 +171,7 @@ const AvailableTables = ({ getAllData, dataReady }) => {
         border: `1px solid ${
           theme.colors.myColor?.[3] || theme.colors.gray[3]
         }`,
-        height: "46%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
       }}
@@ -117,36 +184,63 @@ const AvailableTables = ({ getAllData, dataReady }) => {
             {tables.map((table, index) => {
               const tableName = table.replace("_table", "");
               return (
-                <Box key={index}>
-                  <Text size="md" fw={600}>
-                    {tableName} Table
-                  </Text>
-                  <Table
-                    highlightOnHover
-                    withTableBorder
-                    withColumnBorders
-                    bg="white"
+                <Paper
+                  key={tableName}
+                  style={{
+                    backgroundColor: "white",
+                    padding: "8px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <Group
+                    justify="space-between"
+                    align="center"
+                    onClick={() => toggleTable(tableName)}
+                    style={{
+                      cursor: "pointer",
+                    }}
                   >
-                    <Table.Thead>
-                      <Table.Tr>
-                        {tableColumns[index].map((col) => (
-                          <Table.Th key={col}>{col}</Table.Th>
-                        ))}
-                      </Table.Tr>
-                    </Table.Thead>
-                    <Table.Tbody>
-                      {tableData[index].map((row, rowIndex) => (
-                        <Table.Tr key={`row-${rowIndex}`}>
+                    <Text size="md" fw={600}>
+                      {tableName} Table
+                    </Text>
+                    <ChevronDown
+                      style={{
+                        transform: openStates[tableName]
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "0.3s",
+                      }}
+                    />
+                  </Group>
+                  {openStates[tableName] && (
+                    <Table
+                      highlightOnHover
+                      withTableBorder
+                      withColumnBorders
+                      bg="white"
+                      mt="md"
+                    >
+                      <Table.Thead>
+                        <Table.Tr>
                           {tableColumns[index].map((col) => (
-                            <Table.Td key={`${rowIndex}-${col}`}>
-                              {row[col]}
-                            </Table.Td>
+                            <Table.Th key={col}>{col}</Table.Th>
                           ))}
                         </Table.Tr>
-                      ))}
-                    </Table.Tbody>
-                  </Table>
-                </Box>
+                      </Table.Thead>
+                      <Table.Tbody>
+                        {tableData[index].map((row, rowIndex) => (
+                          <Table.Tr key={`row-${rowIndex}`}>
+                            {tableColumns[index].map((col) => (
+                              <Table.Td key={`${rowIndex}-${col}`}>
+                                {row[col]}
+                              </Table.Td>
+                            ))}
+                          </Table.Tr>
+                        ))}
+                      </Table.Tbody>
+                    </Table>
+                  )}
+                </Paper>
               );
             })}
           </Stack>

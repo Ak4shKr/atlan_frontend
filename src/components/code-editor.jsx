@@ -10,11 +10,9 @@ import { lazy, Suspense } from "react";
 import { EditorView } from "@codemirror/view";
 const CodeMirror = lazy(() => import("@uiw/react-codemirror"));
 import { sql } from "@codemirror/lang-sql";
-import { useMediaQuery } from "@mantine/hooks";
 
 const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
   const theme = useMantineTheme();
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <Paper
@@ -22,7 +20,7 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
       withBorder
       bg={theme.colors.myColor[0]}
       style={{
-        height: "50%",
+        height: "100%",
         border: `1px solid ${theme.colors.myColor[3]}`,
         display: "flex",
         flexDirection: "column",
@@ -35,7 +33,6 @@ const SQLEditor = ({ query, handleEditorChange, handleRun, handleClear }) => {
           extensions={[sql(), EditorView.lineWrapping]}
           onChange={handleEditorChange}
           style={{
-            height: isMobile ? "50%" : "60%",
             overflowY: "auto",
             overflowX: "auto",
             scrollbarWidth: "none",
